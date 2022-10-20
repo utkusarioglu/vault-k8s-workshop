@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  tf-k8s-repo-template:
+    container_name: tf-k8s-repo-template
+    image: utkusarioglu/tf-k8s-devcontainer:1.2.15
+    environment:
+      TZ: Etc/UTC0
+    extra_hosts:
+      tf-k8s-repo-template.templates.utkusarioglu.com: host-gateway
+    volumes:
+      - type: bind
+        source: ..
+        target: /utkusarioglu-com/templates/tf-k8s-repo-template
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
