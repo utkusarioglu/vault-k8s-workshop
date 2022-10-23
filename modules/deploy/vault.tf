@@ -16,11 +16,11 @@ resource "helm_release" "vault" {
       server = {
         dataStorage = {
           enabled = true
-          # mountPath = "/volumes/vault"
         }
-        auditStorage = {
-          enabled = true
-        }
+        # auditStorage = {
+        #   enabled = true
+        # }
+
         ha = {
           enabled  = true
           replicas = 3

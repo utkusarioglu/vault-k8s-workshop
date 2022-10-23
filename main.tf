@@ -1,3 +1,7 @@
+module "base" {
+  source = "./modules/base"
+}
+
 module "deploy" {
   source = "./modules/deploy"
 }

@@ -15,6 +15,30 @@ ports:
   - port: 443:443
     nodeFilters:
       - loadbalancer
+  - port: 8200:8200
+    nodeFilters:
+      - agent:*
+
+volumes:
+  - volume: ${VOLUMES_ROOT}/server-0:/var/lib/rancher/k3s/storage
+    nodeFilters:
+      - server:0
+  - volume: ${VOLUMES_ROOT}/worker-0:/var/lib/rancher/k3s/storage
+    nodeFilters:
+      - agent:0
+  - volume: ${VOLUMES_ROOT}/worker-1:/var/lib/rancher/k3s/storage
+    nodeFilters:
+      - agent:1
+  - volume: ${VOLUMES_ROOT}/worker-2:/var/lib/rancher/k3s/storage
+    nodeFilters:
+      - agent:2
+  - volume: ${VOLUMES_ROOT}/worker-3:/var/lib/rancher/k3s/storage
+    nodeFilters:
+      - agent:3
+  - volume: ${VOLUMES_ROOT}/worker-4:/var/lib/rancher/k4s/storage
+    nodeFilters:
+      - agent:4
+
 options:
   k3d:
     wait: true
@@ -30,6 +54,9 @@ options:
       - arg: --disable=traefik
         nodeFilters:
           - server:0
+      - arg: --node-taint=node-role.kubernetes.io/control-plane=true:NoExecute
+        nodeFilters:
+          - server:*
       - arg: --node-name=server-0
         nodeFilters:
           - server:0
