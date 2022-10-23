@@ -1,14 +1,14 @@
 version: "3.9"
 services:
-  tf-k8s-repo-template:
+  vault-k8s-workshop:
     command: /bin/sh -c "while sleep 1000; do :; done"
     volumes:
-      - type: volume
-        source: vscode-extensions
-        target: /home/terraform/.vscode-server/extensions
-      - type: volume
-        source: vscode-extensions-insiders
-        target: /home/terraform/.vscode-server-insiders/extensions
+      # - type: volume
+      #   source: vscode-extensions
+      #   target: /home/terraform/.vscode-server/extensions
+      # - type: volume
+      #   source: vscode-extensions-insiders
+      #   target: /home/terraform/.vscode-server-insiders/extensions
       - type: bind
         source: ~/.config/gh
         target: /home/terraform/.config/gh
@@ -22,8 +22,8 @@ services:
 
 volumes:
   vscode-extensions:
-    name: tf-k8s-repo-template-vscode-extensions
+    name: vault-k8s-workshop-vscode-extensions
   vscode-extensions-insiders:
-    name: tf-k8s-repo-template-vscode-extensions-insiders
+    name: vault-k8s-workshop-vscode-extensions-insiders
   go:
-    name: tf-k8s-repo-template-go
+    name: vault-k8s-workshop-go

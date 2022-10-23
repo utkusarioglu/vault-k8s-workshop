@@ -6,7 +6,7 @@ check_repo_config
 
 resources=${1:-$DEFAULT_KUBECTL_WATCH_RESOURCES}
 
-echo "watch '\
+echo "watch -w '\
   for resource in $resources; do \
     echo \$resource; \
     kubectl get \$resource \

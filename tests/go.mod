@@ -1,4 +1,4 @@
-module utkusarioglu.com/templates/tf-k8s-repo-template
+module utkusarioglu.com/templates/vault-k8s-workshop
 
 go 1.18
 

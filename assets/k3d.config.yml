@@ -1,11 +1,11 @@
 apiVersion: k3d.io/v1alpha4
 kind: Simple
 metadata:
-  name: tf-k8s-repo-template
+  name: vault-k8s-workshop
 servers: 1
-agents: 2
+agents: 5
 kubeAPI:
-  host: tf-k8s-repo-template.templates.utkusarioglu.com
+  host: vault-k8s.workshops.utkusarioglu.com
   hostIP: "127.0.0.1"
   hostPort: "6443"
 ports:
@@ -24,7 +24,7 @@ options:
     disableRollback: false
   k3s:
     extraArgs:
-      - arg: --tls-san=tf-k8s-repo-template.templates.utkusarioglu.com
+      - arg: --tls-san=vault-k8s.workshops.utkusarioglu.com
         nodeFilters:
           - server:*
       - arg: --disable=traefik
@@ -39,13 +39,25 @@ options:
       - arg: --node-name=worker-1
         nodeFilters:
           - agent:1
+      - arg: --node-name=worker-2
+        nodeFilters:
+          - agent:2
+      - arg: --node-name=worker-3
+        nodeFilters:
+          - agent:3
+      - arg: --node-name=worker-4
+        nodeFilters:
+          - agent:4
     nodeLabels:
-      - label: k3d-node=0
+      - label: vault_in_k8s=true
         nodeFilters:
-          - agent:0
-      - label: k3d-node=1
+          - agent:2
+      - label: vault_in_k8s=true
         nodeFilters:
-          - agent:1
+          - agent:3
+      - label: vault_in_k8s=true
+        nodeFilters:
+          - agent:4
   kubeconfig:
     updateDefaultKubeconfig: true
     switchCurrentContext: true

@@ -1,12 +1,12 @@
 {
-  "name": "tf-k8s-repo-template.templates.utkusarioglu.com",
+  "name": "vault-k8s.workshops.utkusarioglu.com",
   "dockerComposeFile": [
     "../.docker/docker-compose.dev.yml",
     "docker-compose.yml"
   ],
   "postCreateCommand": "scripts/post-create-command.sh",
-  "service": "tf-k8s-repo-template",
-  "workspaceFolder": "/utkusarioglu-com/templates/tf-k8s-repo-template",
+  "service": "vault-k8s-workshop",
+  "workspaceFolder": "/utkusarioglu-com/workshops/vault-k8s",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -16,7 +16,8 @@
       ],
       "settings": {
         "workbench.colorCustomizations": {
-          "activityBar.background": "#171244"
+          "activityBar.background": "#dfab00",
+          "activityBar.foreground": "#000000"
         }
       }
     }

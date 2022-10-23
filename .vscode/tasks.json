@@ -270,7 +270,7 @@
     {
       "id": "clusterName",
       "description": "Cluster name",
-      "default": "tf-k8s-repo-template",
+      "default": "vault-k8s-workshop",
       "type": "promptString"
     },
     {
