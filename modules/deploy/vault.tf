@@ -12,14 +12,17 @@ resource "helm_release" "vault" {
       global = {
         enabled    = true
         tlsDisable = true
+        # serverTelemetry = {
+        #   prometheusOperator = true
+        # }
       }
       server = {
         dataStorage = {
           enabled = true
         }
-        # auditStorage = {
-        #   enabled = true
-        # }
+        auditStorage = {
+          enabled = true
+        }
 
         ha = {
           enabled  = true
@@ -29,11 +32,17 @@ resource "helm_release" "vault" {
             setNodeId = true
             config    = <<-EOF
               ui = true
+              api_addr = "http://vault-k8s.workshops.utkusarioglu.com:8200"
+              cluster_addr = "http://vault-0.vault-internal:8201"
 
               listener "tcp" {
                 address     = "[::]:8200"
                 cluster_address = "[::]:8201"
                 tls_disable = 1
+                
+                telemetry {
+                  unauthenticated_metrics_access = "true"
+                }
               }
 
               storage "raft" {
@@ -41,15 +50,15 @@ resource "helm_release" "vault" {
                 setNodeId = true
 
                 retry_join {
-                  leader_api_addr = "https://vault-0.vault-internal.vault:8200"
+                  leader_api_addr = "http://vault-0.vault-internal:8200"
                 }
 
                 retry_join {
-                  leader_api_addr = "https://vault-1.vault-internal.vault:8200"
+                  leader_api_addr = "http://vault-1.vault-internal:8200"
                 }
 
                 retry_join {
-                  leader_api_addr = "https://vault-2.vault-internal.vault:8200"
+                  leader_api_addr = "http://vault-2.vault-internal:8200"
                 }
 
                 autopilot {
@@ -70,6 +79,11 @@ resource "helm_release" "vault" {
 
       injector = {
         enabled = true
+        agentDefaults = {
+          metrics = {
+            enabled = true
+          }
+        }
       }
 
       ui = {
