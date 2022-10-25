@@ -1,5 +1,6 @@
 # This module isn't used yet
 resource "kubernetes_storage_class" "vault_sc" {
+  count = 0
   metadata {
     name = "vault-sc"
   }
