@@ -1,6 +1,7 @@
-resource "kubernetes_namespace" "vault" {
-  count = 1
+resource "kubernetes_namespace" "this" {
+  for_each = toset(["vault", "k8s-dashboard"])
+
   metadata {
-    name = "vault"
+    name = each.key
   }
 }
