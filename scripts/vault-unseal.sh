@@ -1,3 +1,5 @@
+#!/bin/bash
+
 artifacts_folder=artifacts
 rm -rf $artifacts_folder
 mkdir -p $artifacts_folder
