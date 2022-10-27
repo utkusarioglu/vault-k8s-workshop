@@ -23,6 +23,35 @@ resource "helm_release" "vault" {
         auditStorage = {
           enabled = true
         }
+        nodeSelector = {
+          vault_in_k8s = "true"
+        }
+        affinity = {
+          podAntiAffinity = {
+            requiredDuringSchedulingIgnoredDuringExecution = [
+              {
+                labelSelector = {
+                  matchLabels = {
+                    "app.kubernetes.io/name"     = "vault"
+                    "app.kubernetes.io/instance" = "vault"
+                    "component"                  = "server"
+                  }
+                }
+                topologyKey = "kubernetes.io/hostname"
+              },
+              {
+                labelSelector = {
+                  matchLabels = {
+                    "app.kubernetes.io/name"     = "vault"
+                    "app.kubernetes.io/instance" = "vault"
+                    "component"                  = "server"
+                  }
+                }
+                topologyKey = "topology.kubernetes.io/zone"
+              }
+            ]
+          }
+        }
 
         ha = {
           enabled  = true

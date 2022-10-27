@@ -76,14 +76,25 @@ options:
         nodeFilters:
           - agent:4
     nodeLabels:
+      - label: "topology.kubernetes.io/region=${CLUSTER_REGION}"
+        nodeFilters:
+          - server:*
+          - agent:*
       - label: vault_in_k8s=true
+        nodeFilters:
+          - agent:0
+          - agent:2
+          - agent:4
+      - label: "topology.kubernetes.io/zone=${CLUSTER_REGION}a"
+        nodeFilters:
+          - agent:0
+          - agent:1
+      - label: "topology.kubernetes.io/zone=${CLUSTER_REGION}b"
         nodeFilters:
           - agent:2
-      - label: vault_in_k8s=true
+      - label: "topology.kubernetes.io/zone=${CLUSTER_REGION}c"
         nodeFilters:
           - agent:3
-      - label: vault_in_k8s=true
-        nodeFilters:
           - agent:4
   kubeconfig:
     updateDefaultKubeconfig: true
