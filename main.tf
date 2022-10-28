@@ -6,10 +6,11 @@ module "deploy" {
   source = "./modules/deploy"
 }
 
-# module "ops" {
-#   source = "./modules/ops"
+module "ops" {
+  count  = 1
+  source = "./modules/ops"
 
-#   depends_on = [
-#     module.deploy
-#   ]
-# }
+  depends_on = [
+    module.deploy
+  ]
+}

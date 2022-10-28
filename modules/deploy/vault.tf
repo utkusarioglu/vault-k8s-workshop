@@ -1,4 +1,5 @@
 resource "helm_release" "vault" {
+  count           = 1
   name            = "vault"
   repository      = "https://helm.releases.hashicorp.com"
   chart           = "vault"

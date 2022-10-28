@@ -75,18 +75,23 @@ unseal() {
 }
 
 get_sealed_pods() {
-  kubectl -n vault get po -o=json --field-selector status.phase=Running | jq '.items[] | select(.metadata.name|test("^vault-[0-9]")) | .metadata.name' | sort
+  kubectl -n vault get po -o=json \
+    --field-selector status.phase=Running | \
+    jq \
+    '.items[] | select(.metadata.name|test("^vault-[0-9]")) | .metadata.name' \
+    | sort 2> \
+    /dev/null
 }
 
 track(){
-  sleep_period=2
+  sleep_period=10
   sleep_timer=0
   sealed_pods=$(get_sealed_pods)
   sealed_pods_array=($sealed_pods)
   while [ ${#sealed_pods_array[@]} -lt 3 ]
   do
     ((sleep_timer+=$sleep_period))
-    echo "Pods aren't ready, waiting… ($sleep_timer)"
+    echo "Pods aren't ready, waiting… (${sleep_timer}s)"
     sleep $sleep_period
     sealed_pods=$(get_sealed_pods)
     sealed_pods_array=($sealed_pods)
@@ -112,3 +117,5 @@ print_status() {
 track
 sleep 5
 print_status
+
+echo $(cat artifacts/root.token.json | jq -r .auth.client_token) > ~/.vault-token

@@ -12,5 +12,9 @@ terraform {
       source  = "hashicorp/vault"
       version = "3.9.1"
     }
+    null = {
+      source  = "hashicorp/null"
+      version = "3.2.0"
+    }
   }
 }

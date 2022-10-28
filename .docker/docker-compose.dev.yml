@@ -8,6 +8,7 @@ services:
       TZ: Etc/UTC0
       VOLUMES_ROOT: ${HOME}/dev/volumes/vault-kubernetes-workshop
       CLUSTER_REGION: us-east-1
+      VAULT_ADDR: http://vault-k8s.workshops.utkusarioglu.com:8200
     extra_hosts:
       vault-k8s.workshops.utkusarioglu.com: host-gateway
     volumes:
